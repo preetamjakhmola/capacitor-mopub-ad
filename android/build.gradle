@@ -6,16 +6,21 @@ ext {
 }
 
 buildscript {
+    ext.kotlin_version = '1.5.20'
     repositories {
+        mavenCentral();
         google()
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
     }
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 30
@@ -55,4 +60,23 @@ dependencies {
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.android.gms:play-services-ads:20.1.0'
+    implementation 'com.facebook.android:audience-network-sdk:6.5.0'
+    implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
+    implementation 'com.google.android.gms:play-services-basement:17.1.1'
+    implementation('com.mopub:mopub-sdk:5.17.0@aar') {
+        transitive = true
+    }
+    // For fullscreen ads
+    implementation('com.mopub:mopub-sdk-fullscreen:5.17.0@aar') {
+        transitive = true
+    }
+
+    // For native static (images).
+    implementation('com.mopub:mopub-sdk-native-static:5.17.0@aar') {
+        transitive = true
+    }
+    implementation 'com.google.ads.mediation:mopub:5.3.0.1'
 }
